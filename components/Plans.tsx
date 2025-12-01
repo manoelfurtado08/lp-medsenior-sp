@@ -89,6 +89,13 @@ export const Plans: React.FC = () => {
                   fullWidth 
                   className="border-med-green text-med-green hover:bg-med-green hover:text-white uppercase text-sm tracking-wide font-bold py-2"
                   message={`Olá, gostaria de contratar o plano ${plan.name} (${isPME ? 'PME' : 'Individual'}).`}
+                  trackingEvent="InitiateCheckout"
+                  trackingData={{ 
+                    content_name: plan.name, 
+                    content_category: isPME ? 'PME' : 'Individual',
+                    currency: 'BRL',
+                    value: 0.00 // Opcional: pode tentar extrair o valor do texto se desejar precisão
+                  }}
                 >
                   Quero Este
                 </Button>
@@ -119,7 +126,13 @@ export const Plans: React.FC = () => {
               </p>
             </div>
             <div className="shrink-0 w-full md:w-auto flex flex-col items-center gap-3">
-              <Button variant="whatsapp" className="px-8 py-4 text-lg w-full shadow-lg shadow-med-green/20" message="Olá, gostaria de ajuda para escolher meu plano MedSênior.">
+              <Button 
+                variant="whatsapp" 
+                className="px-8 py-4 text-lg w-full shadow-lg shadow-med-green/20" 
+                message="Olá, gostaria de ajuda para escolher meu plano MedSênior."
+                trackingEvent="Contact"
+                trackingData={{ content_name: 'CTA Ajuda Escolha' }}
+              >
                 Falar com Consultor <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               

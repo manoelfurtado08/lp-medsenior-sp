@@ -12,6 +12,17 @@ export const Hero: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Rastreamento do Pixel (Evento Lead)
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Lead', {
+        content_name: 'Formulário Hero',
+        content_category: 'Cotação',
+        value: 0.00, // Pode atribuir um valor estimado para o lead se quiser
+        currency: 'BRL'
+      });
+    }
+
     const text = `Olá! Me chamo ${formData.name}. Meu email é ${formData.email} e telefone ${formData.phone}. Gostaria de simular o plano MedSênior.`;
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
@@ -131,9 +142,13 @@ export const Hero: React.FC = () => {
                   />
                 </div>
 
-                <Button fullWidth variant="primary" className="mt-2 text-lg font-bold uppercase tracking-wide bg-med-green hover:bg-med-deep shadow-lg shadow-med-green/30">
+                {/* Botão de Submit do Formulário - note que não usamos o componente Button aqui para ter controle total do submit, mas estilizamos igual */}
+                <button 
+                  type="submit"
+                  className="w-full inline-flex items-center justify-center font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-lg bg-med-green hover:bg-med-deep text-white border-2 border-transparent mt-2 uppercase tracking-wide shadow-lg shadow-med-green/30"
+                >
                   Cotar Agora →
-                </Button>
+                </button>
                 
                 {/* Trust Badges */}
                 <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-gray-100">

@@ -25,7 +25,7 @@ function App() {
     const pixelId = '1585967392422212';
     
     if (!window.fbq) {
-      !function(f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
+      (function(f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
         if (f.fbq) return;
         n = f.fbq = function() {
           n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
@@ -40,7 +40,7 @@ function App() {
         t.src = v;
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
-      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
       
       window.fbq('init', pixelId);
     }
@@ -48,6 +48,19 @@ function App() {
     // Track PageView
     window.fbq('track', 'PageView');
   }, []);
+
+  const handleFloatingClick = () => {
+    if (window.fbq) {
+      window.fbq('track', 'Contact', { content_name: 'Botão Flutuante Mobile' });
+    }
+  };
+
+  const handleFinalCTAClick = () => {
+    if (window.fbq) {
+      window.fbq('track', 'Contact', { content_name: 'Botão Final CTA' });
+    }
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá, estou no final da página e quero fechar o plano MedSênior.")}`, '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -68,7 +81,7 @@ function App() {
             <h2 className="text-3xl font-bold mb-4">Ainda tem dúvidas?</h2>
             <p className="mb-8 text-lg opacity-80 text-gray-300">Não deixe para depois. Garanta a proteção que você merece com condições especiais hoje.</p>
             <button 
-              onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá, estou no final da página e quero fechar o plano MedSênior.")}`, '_blank')}
+              onClick={handleFinalCTAClick}
               className="bg-med-accent text-white font-bold text-xl py-4 px-8 rounded-full shadow-lg hover:bg-green-600 transition-all flex items-center justify-center gap-2 mx-auto w-full md:w-auto mb-8"
             >
               <Phone className="fill-current" /> Falar com Especialista Agora
@@ -95,6 +108,7 @@ function App() {
         href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá, estou no site e gostaria de cotar o plano MedSênior.")}`}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleFloatingClick}
         className="fixed bottom-5 right-5 z-50 lg:hidden flex items-center gap-2 bg-[#25D366] text-white py-3 px-5 rounded-full shadow-2xl hover:bg-[#128C7E] transition-all duration-300 transform hover:scale-105 border-2 border-white/20"
         style={{ boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)' }}
         aria-label="Falar no WhatsApp"

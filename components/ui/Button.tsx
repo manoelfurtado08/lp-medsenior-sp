@@ -9,6 +9,9 @@ interface ButtonProps {
   fullWidth?: boolean;
   onClick?: () => void;
   message?: string;
+  // Novas props para rastreamento
+  trackingEvent?: string; // Ex: 'Contact', 'Lead', 'InitiateCheckout'
+  trackingData?: Record<string, any>; // Ex: { content_name: 'Plano SP1' }
 }
 
 export const Button: React.FC<ButtonProps> = ({ 
@@ -17,7 +20,9 @@ export const Button: React.FC<ButtonProps> = ({
   className = '', 
   fullWidth = false,
   onClick,
-  message = "Olá, gostaria de mais informações sobre o plano MedSênior SP."
+  message = "Olá, gostaria de mais informações sobre o plano MedSênior SP.",
+  trackingEvent = 'Contact', // Padrão é 'Contact' para botões de ação
+  trackingData = {}
 }) => {
   const baseStyles = "inline-flex items-center justify-center font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-lg";
   
@@ -31,6 +36,15 @@ export const Button: React.FC<ButtonProps> = ({
   const widthClass = fullWidth ? "w-full" : "";
 
   const handleWhatsappClick = () => {
+    // Dispara o evento do Facebook Pixel
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', trackingEvent, {
+        content_name: 'Botão WhatsApp',
+        content_category: variant,
+        ...trackingData
+      });
+    }
+
     if (onClick) {
       onClick();
     }
