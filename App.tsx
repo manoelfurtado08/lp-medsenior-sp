@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Stats } from './components/Stats';
@@ -12,7 +12,43 @@ import { Footer } from './components/Footer';
 import { Phone, ShieldCheck, Lock } from 'lucide-react';
 import { WHATSAPP_NUMBER } from './constants';
 
+declare global {
+  interface Window {
+    fbq: any;
+    _fbq: any;
+  }
+}
+
 function App() {
+  useEffect(() => {
+    // Meta Pixel Initialization
+    const pixelId = '1585967392422212';
+    
+    if (!window.fbq) {
+      !function(f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
+        if (f.fbq) return;
+        n = f.fbq = function() {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = true;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = true;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      
+      window.fbq('init', pixelId);
+    }
+    
+    // Track PageView
+    window.fbq('track', 'PageView');
+  }, []);
+
   return (
     <div className="min-h-screen bg-white font-sans">
       <Header />
