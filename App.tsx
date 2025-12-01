@@ -51,13 +51,19 @@ function App() {
 
   const handleFloatingClick = () => {
     if (window.fbq) {
-      window.fbq('track', 'Contact', { content_name: 'Botão Flutuante Mobile' });
+      window.fbq('track', 'Contact', { 
+        content_name: 'Botão Flutuante Mobile',
+        content_category: 'WhatsApp'
+      });
     }
   };
 
   const handleFinalCTAClick = () => {
     if (window.fbq) {
-      window.fbq('track', 'Contact', { content_name: 'Botão Final CTA' });
+      window.fbq('track', 'Contact', { 
+        content_name: 'Botão Final CTA',
+        content_category: 'WhatsApp'
+      });
     }
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá, estou no final da página e quero fechar o plano MedSênior.")}`, '_blank');
   };
