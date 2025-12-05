@@ -29,9 +29,11 @@ export interface PriceTier {
 
 export interface Plan {
   name: string;
+  namePME?: string; // Optional name for PME version
   tagline: string; // Used for Accommodation (Enfermaria/Apartamento)
   ans?: string;
   prices: PriceTier[];
+  pricesPME?: PriceTier[]; // Optional prices for PME version
   features: string[];
   recommended?: boolean;
 }

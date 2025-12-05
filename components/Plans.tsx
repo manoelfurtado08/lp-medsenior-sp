@@ -33,85 +33,91 @@ export const Plans: React.FC = () => {
           </div>
           
           {isPME && (
-            <div className="bg-yellow-50 text-yellow-800 px-4 py-2 rounded-lg inline-block text-sm mb-8 border border-yellow-200">
-              Visualizando condições para CNPJ. Consulte elegibilidade com nossos especialistas.
+            <div className="bg-green-50 text-med-deep px-4 py-2 rounded-lg inline-block text-sm mb-8 border border-green-200 shadow-sm animate-fade-in-down">
+              <span className="font-bold">✨ Condições exclusivas PME ativadas:</span> Valores reduzidos para CNPJ e MEI (de 01 a 29 vidas).
             </div>
           )}
         </div>
 
         {/* Updated Grid for Plans */}
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto items-stretch mb-8">
-          {PLANS.map((plan, index) => (
-            <div 
-              key={index} 
-              className={`relative bg-white rounded-2xl p-5 shadow-xl flex flex-col transition-all duration-300 hover:shadow-2xl ${
-                plan.recommended 
-                  ? 'border-2 border-med-green ring-4 ring-med-green/10 transform xl:-translate-y-2 z-10' 
-                  : 'border border-gray-100 hover:-translate-y-1'
-              }`}
-            >
-              <div className="mb-4">
-                <h3 className="text-xl font-bold text-med-dark mb-1">{plan.name}</h3>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="text-gray-500 font-medium text-sm">{plan.tagline}</span>
-                  {plan.ans && (
-                    <span className="text-[10px] bg-gray-100 text-gray-400 px-2 py-0.5 rounded-full">
-                      ANS: {plan.ans}
-                    </span>
-                  )}
+          {PLANS.map((plan, index) => {
+            // Determine dynamic data based on toggle
+            const currentName = isPME && plan.namePME ? plan.namePME : plan.name;
+            const currentPrices = isPME && plan.pricesPME ? plan.pricesPME : plan.prices;
+
+            return (
+              <div 
+                key={index} 
+                className={`relative bg-white rounded-2xl p-5 shadow-xl flex flex-col transition-all duration-300 hover:shadow-2xl ${
+                  plan.recommended 
+                    ? 'border-2 border-med-green ring-4 ring-med-green/10 transform xl:-translate-y-2 z-10' 
+                    : 'border border-gray-100 hover:-translate-y-1'
+                }`}
+              >
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold text-med-dark mb-1">{currentName}</h3>
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-gray-500 font-medium text-sm">{plan.tagline}</span>
+                    {plan.ans && (
+                      <span className="text-[10px] bg-gray-100 text-gray-400 px-2 py-0.5 rounded-full">
+                        ANS: {plan.ans}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* Price Table within Card */}
+                  <div className={`rounded-xl p-4 border space-y-3 ${isPME ? 'bg-green-50 border-green-100' : 'bg-gray-50 border-gray-100'}`}>
+                    {currentPrices.map((price, idx) => (
+                      <div key={idx} className={`flex justify-between items-center ${idx !== currentPrices.length - 1 ? 'border-b border-gray-200 pb-2' : ''}`}>
+                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">{price.range}</span>
+                        <span className="text-lg font-bold text-med-green">{price.value}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                
-                {/* Price Table within Card */}
-                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 space-y-3">
-                  {plan.prices.map((price, idx) => (
-                    <div key={idx} className={`flex justify-between items-center ${idx !== plan.prices.length - 1 ? 'border-b border-gray-200 pb-2' : ''}`}>
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">{price.range}</span>
-                      <span className="text-lg font-bold text-med-green">{price.value}</span>
+
+                <div className="flex-grow mb-6 space-y-2">
+                  {plan.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-2">
+                      <div className="mt-1 min-w-[14px]">
+                        <Check className="w-3.5 h-3.5 text-med-green" strokeWidth={3} />
+                      </div>
+                      <span className="text-gray-600 text-sm leading-snug">{feature}</span>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              <div className="flex-grow mb-6 space-y-2">
-                {plan.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-2">
-                    <div className="mt-1 min-w-[14px]">
-                      <Check className="w-3.5 h-3.5 text-med-green" strokeWidth={3} />
-                    </div>
-                    <span className="text-gray-600 text-sm leading-snug">{feature}</span>
+                <div className="mt-auto">
+                  <Button 
+                    variant="outline"
+                    fullWidth 
+                    className="border-med-green text-med-green hover:bg-med-green hover:text-white uppercase text-sm tracking-wide font-bold py-2"
+                    message={`Olá, gostaria de contratar o plano ${currentName} (${isPME ? 'PME' : 'Individual'}).`}
+                    trackingEvent="InitiateCheckout"
+                    trackingData={{ 
+                      content_name: currentName, 
+                      content_category: isPME ? 'PME' : 'Individual',
+                      currency: 'BRL',
+                      value: 0.00
+                    }}
+                  >
+                    Quero Este
+                  </Button>
+                  <div className="flex justify-center gap-3 mt-3 opacity-60">
+                     <div className="flex items-center gap-1">
+                        <ShieldCheck size={12} className="text-gray-400" />
+                        <span className="text-[10px] text-gray-400 font-semibold">Regulado ANS</span>
+                     </div>
+                     <div className="flex items-center gap-1">
+                        <Lock size={12} className="text-gray-400" />
+                        <span className="text-[10px] text-gray-400 font-semibold">Site Seguro</span>
+                     </div>
                   </div>
-                ))}
-              </div>
-
-              <div className="mt-auto">
-                <Button 
-                  variant="outline"
-                  fullWidth 
-                  className="border-med-green text-med-green hover:bg-med-green hover:text-white uppercase text-sm tracking-wide font-bold py-2"
-                  message={`Olá, gostaria de contratar o plano ${plan.name} (${isPME ? 'PME' : 'Individual'}).`}
-                  trackingEvent="InitiateCheckout"
-                  trackingData={{ 
-                    content_name: plan.name, 
-                    content_category: isPME ? 'PME' : 'Individual',
-                    currency: 'BRL',
-                    value: 0.00 // Opcional: pode tentar extrair o valor do texto se desejar precisão
-                  }}
-                >
-                  Quero Este
-                </Button>
-                <div className="flex justify-center gap-3 mt-3 opacity-60">
-                   <div className="flex items-center gap-1">
-                      <ShieldCheck size={12} className="text-gray-400" />
-                      <span className="text-[10px] text-gray-400 font-semibold">Regulado ANS</span>
-                   </div>
-                   <div className="flex items-center gap-1">
-                      <Lock size={12} className="text-gray-400" />
-                      <span className="text-[10px] text-gray-400 font-semibold">Site Seguro</span>
-                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Prominent CTA Block */}

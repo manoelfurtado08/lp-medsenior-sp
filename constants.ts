@@ -171,12 +171,18 @@ export const HOSPITALS_BY_PLAN: PlanNetwork[] = [
 export const PLANS: Plan[] = [
   {
     name: "MedSênior SP1 QC",
+    namePME: "Corporate SP1 QC",
     tagline: "Enfermaria",
     ans: "494.293/23-1",
     prices: [
       { range: "49 A 53 ANOS", value: "R$ 900,82" },
       { range: "54 A 58 ANOS", value: "R$ 1.080,98" },
       { range: "59 ANOS OU MAIS", value: "R$ 1.416,08" }
+    ],
+    pricesPME: [
+      { range: "49 A 53 ANOS", value: "R$ 816,97" },
+      { range: "54 A 58 ANOS", value: "R$ 980,36" },
+      { range: "59 ANOS OU MAIS", value: "R$ 1.274,47" }
     ],
     features: [
       "Acomodação Enfermaria",
@@ -188,6 +194,7 @@ export const PLANS: Plan[] = [
   },
   {
     name: "MedSênior SP2 QP",
+    namePME: "Corporate SP2 QP",
     tagline: "Apartamento",
     ans: "494.295/23-8",
     recommended: true,
@@ -195,6 +202,11 @@ export const PLANS: Plan[] = [
       { range: "49 A 53 ANOS", value: "R$ 1.045,93" },
       { range: "54 A 58 ANOS", value: "R$ 1.254,64" },
       { range: "59 ANOS OU MAIS", value: "R$ 1.643,58" }
+    ],
+    pricesPME: [
+      { range: "49 A 53 ANOS", value: "R$ 980,36" },
+      { range: "54 A 58 ANOS", value: "R$ 1.176,43" },
+      { range: "59 ANOS OU MAIS", value: "R$ 1.529,37" }
     ],
     features: [
       "Acomodação Apartamento",
@@ -206,12 +218,18 @@ export const PLANS: Plan[] = [
   },
   {
     name: "MedSênior Black 5 QP",
+    namePME: "Black Corporate QP",
     tagline: "Apartamento Executivo",
     ans: "494.296/23-6",
     prices: [
       { range: "49 A 53 ANOS", value: "R$ 1.205,92" },
       { range: "54 A 58 ANOS", value: "R$ 1.447,11" },
       { range: "59 ANOS OU MAIS", value: "R$ 1.895,71" }
+    ],
+    pricesPME: [
+      { range: "49 A 53 ANOS", value: "R$ 1.093,69" },
+      { range: "54 A 58 ANOS", value: "R$ 1.312,43" },
+      { range: "59 ANOS OU MAIS", value: "R$ 1.706,16" }
     ],
     features: [
       "Hospitais Premium",
@@ -223,12 +241,18 @@ export const PLANS: Plan[] = [
   },
   {
     name: "MedSênior Infinite QP",
+    namePME: "MedSênior Infinite QP",
     tagline: "Apartamento Premium",
     ans: "495.123/24-2",
     prices: [
       { range: "49 A 53 ANOS", value: "R$ 1.653,00" },
       { range: "54 A 58 ANOS", value: "R$ 1.983,60" },
       { range: "59 ANOS OU MAIS", value: "R$ 2.598,52" }
+    ],
+    pricesPME: [
+      { range: "49 A 53 ANOS", value: "R$ 1.499,14" },
+      { range: "54 A 58 ANOS", value: "R$ 1.798,97" },
+      { range: "59 ANOS OU MAIS", value: "R$ 2.338,66" }
     ],
     features: [
       "Rede Exclusiva",
