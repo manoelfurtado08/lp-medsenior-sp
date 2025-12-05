@@ -2,8 +2,13 @@ import { LucideIcon } from 'lucide-react';
 
 export interface Hospital {
   name: string;
-  location: string;
+  location: string; // Kept for backward compatibility if needed, though mostly unused in new structure
   highlight?: boolean;
+}
+
+export interface PlanNetwork {
+  planName: string;
+  hospitals: string[];
 }
 
 export interface Benefit {

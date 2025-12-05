@@ -1,9 +1,11 @@
-import React from 'react';
-import { HOSPITALS } from '../constants';
-import { HeartPulse, MapPin, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { HOSPITALS_BY_PLAN } from '../constants';
+import { HeartPulse, ShieldCheck, Search } from 'lucide-react';
 import { Button } from './ui/Button';
 
 export const Network: React.FC = () => {
+  const [activePlanIndex, setActivePlanIndex] = useState(0);
+
   return (
     <section id="hospitais" className="py-20 bg-med-deep text-white relative overflow-hidden">
       {/* Background Pattern - subtle branding */}
@@ -11,70 +13,89 @@ export const Network: React.FC = () => {
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-med-green/10 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
-          
-          <div className="lg:w-1/2">
-            <h2 className="text-3xl lg:text-5xl font-bold mb-6">
-              Excelência Médica em <span className="text-med-lime">São Paulo</span>
-            </h2>
-            <div className="w-20 h-1 bg-med-green mb-8 rounded-full"></div>
-            <p className="text-gray-200 text-lg mb-10 leading-relaxed font-light">
-              Conte com os hospitais mais renomados da capital paulista. A MedSênior oferece acesso a uma rede credenciada de alta qualidade, garantindo segurança e o melhor tratamento quando você mais precisa.
-            </p>
-            <div className="hidden lg:block">
-              <Button variant="whatsapp" className="shadow-xl shadow-med-green/20 border-none bg-med-green hover:bg-med-light hover:text-med-deep" message="Quais hospitais atendem perto do meu bairro?">
-                Consultar Rede Completa
-              </Button>
-              <div className="flex items-center gap-2 mt-4 ml-1 text-med-light/60">
-                <ShieldCheck size={16} />
-                <span className="text-xs font-semibold tracking-wide uppercase">Rede Credenciada e Regulada ANS</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:w-1/2 w-full">
-            <div className="grid gap-4">
-              {HOSPITALS.map((hospital, index) => (
-                <div 
-                  key={index}
-                  className={`flex items-center justify-between p-5 rounded-xl border transition-all duration-300 group ${
-                    hospital.highlight 
-                      ? 'bg-white/10 border-med-green/50 hover:bg-white/20 shadow-lg' 
-                      : 'bg-white/5 border-white/5 hover:bg-white/10'
-                  }`}
-                >
-                  <div className="flex items-center gap-5">
-                    <div className={`p-3 rounded-full transition-colors ${hospital.highlight ? 'bg-med-green text-white' : 'bg-white/5 text-gray-400 group-hover:bg-med-green group-hover:text-white'}`}>
-                      <HeartPulse size={24} strokeWidth={1.5} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg text-white group-hover:text-med-lime transition-colors">{hospital.name}</h4>
-                      <div className="flex items-center gap-1.5 text-sm text-gray-400 mt-0.5">
-                        <MapPin size={14} />
-                        <span>{hospital.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                  {hospital.highlight && (
-                    <span className="hidden sm:block text-[10px] font-bold text-med-deep bg-med-lime px-2 py-1 rounded tracking-wider uppercase">PREMIUM</span>
-                  )}
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-10 lg:hidden text-center">
-              <Button variant="whatsapp" fullWidth message="Quero saber a rede credenciada completa">
-                Ver Rede Completa
-              </Button>
-              <div className="flex justify-center items-center gap-2 mt-4 text-gray-400">
-                <ShieldCheck size={14} />
-                <span className="text-xs font-medium">Rede Regulada ANS</span>
-              </div>
-            </div>
-          </div>
-
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+            Rede Credenciada <span className="text-med-lime">Por Plano</span>
+          </h2>
+          <div className="w-24 h-1 bg-med-green mx-auto mb-8 rounded-full"></div>
+          <p className="text-gray-200 text-lg max-w-2xl mx-auto font-light">
+            Selecione o plano abaixo para ver a lista completa de hospitais credenciados. 
+            A MedSênior oferece excelência e cobertura nos melhores hospitais de São Paulo.
+          </p>
         </div>
+
+        {/* Tabs Navigation */}
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
+          {HOSPITALS_BY_PLAN.map((category, index) => (
+            <button
+              key={index}
+              onClick={() => setActivePlanIndex(index)}
+              className={`px-6 py-3 rounded-full text-sm lg:text-base font-bold transition-all duration-300 transform ${
+                activePlanIndex === index
+                  ? 'bg-med-lime text-med-deep scale-105 shadow-lg shadow-med-lime/20'
+                  : 'bg-white/10 text-white hover:bg-white/20 border border-white/10'
+              }`}
+            >
+              {category.planName}
+            </button>
+          ))}
+        </div>
+
+        {/* Hospital List */}
+        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 backdrop-blur-sm max-w-5xl mx-auto shadow-2xl">
+          <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
+             <Search className="text-med-lime" />
+             <h3 className="text-xl lg:text-2xl font-bold text-white">
+               Hospitais do Plano <span className="text-med-lime">{HOSPITALS_BY_PLAN[activePlanIndex].planName}</span>
+             </h3>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+            {HOSPITALS_BY_PLAN[activePlanIndex].hospitals.map((hospital, index) => (
+              <div 
+                key={index}
+                className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5 group"
+              >
+                <div className="mt-1 p-2 rounded-full bg-med-green/20 text-med-lime group-hover:bg-med-lime group-hover:text-med-deep transition-colors">
+                  <HeartPulse size={20} strokeWidth={2} />
+                </div>
+                <span className="text-gray-200 font-medium leading-tight group-hover:text-white transition-colors">
+                  {hospital}
+                </span>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+            <div className="flex items-center gap-2 text-med-light/60">
+              <ShieldCheck size={18} />
+              <span className="text-sm font-semibold tracking-wide uppercase">Rede Regulada ANS</span>
+            </div>
+            <Button variant="whatsapp" className="w-full md:w-auto shadow-lg shadow-med-green/20 border-none bg-med-green hover:bg-med-light hover:text-med-deep" message={`Quais hospitais atendem no plano ${HOSPITALS_BY_PLAN[activePlanIndex].planName}?`}>
+              Consultar Disponibilidade
+            </Button>
+          </div>
+        </div>
+
       </div>
+      
+      {/* CSS for custom scrollbar */}
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.4);
+        }
+      `}</style>
     </section>
   );
 };

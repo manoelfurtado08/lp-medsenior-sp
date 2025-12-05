@@ -1,5 +1,5 @@
 import { Heart, Shield, Clock, Stethoscope, PiggyBank, Smile } from 'lucide-react';
-import { Benefit, Hospital, Plan, Testimonial, FAQItem } from './types';
+import { Benefit, Plan, Testimonial, FAQItem, PlanNetwork } from './types';
 
 export const WHATSAPP_NUMBER = "551123621331";
 
@@ -36,15 +36,136 @@ export const BENEFITS: Benefit[] = [
   }
 ];
 
-export const HOSPITALS: Hospital[] = [
-  { name: "Hosp. Samaritano", location: "Higienópolis", highlight: true },
-  { name: "BP - Beneficência Portuguesa", location: "Bela Vista", highlight: true },
-  { name: "Hosp. Alemão Oswaldo Cruz", location: "Vergueiro", highlight: true },
-  { name: "Hospital Santa Paula", location: "Vila Olímpia" },
-  { name: "Hospital Santa Catarina", location: "Av. Paulista" },
-  { name: "Hospital São Camilo", location: "Pompeia / Ipiranga" },
-  { name: "Hospital Sepaco", location: "Vila Mariana" },
-  { name: "Hospital Leforte", location: "Liberdade / Morumbi" },
+export const HOSPITALS_BY_PLAN: PlanNetwork[] = [
+  {
+    planName: "Essencial QC",
+    hospitals: [
+      "Hospital Sta. Virgínia - Hospital Filhas de Nsa. Sra. do Mt. Calvário",
+      "HSM - Hospital São Miguel - Un. Day Hospital De Ermelino Matarazzo",
+      "Hospital Presidente",
+      "Hospital Dom Alvarenga - Associacao Beneficente Nsa. Senhora De Nazaré",
+      "Hospital Saint Patrick - Un. Portinari",
+      "Hospital Adventista De São Paulo - Un. Cto.",
+      "Hospital Sta. Rita - Casa De Saúde Sta. Rita",
+      "HSM - Hospital São Miguel - Un. São Miguel",
+      "Un. MedSênior - Avenida Brasil",
+      "Un. MedSênior - Avenida Paulista",
+      "Un. MedSênior - San.",
+      "Un. MedSênior - Sumarezinho",
+      "Un. MedSênior - Tatuapé"
+    ]
+  },
+  {
+    planName: "SP1 QC e SP2 QP",
+    hospitals: [
+      "HJH - Hospital Jardim Helena",
+      "Hospital Sta. Virgínia - Hospital Filhas de Nsa. Sra. do Mt. Calvário",
+      "HSM - Hospital São Miguel - Un. Day Hospital De Ermelino Matarazzo",
+      "Hospital E Mat. Metropolitano - Antigo Hospital Amico",
+      "Hospital E Mat. Sepaco",
+      "Hospital Presidente",
+      "Hospital São Bernardo - Grupo NDI",
+      "Hospital Dom Alvarenga - Associacao Beneficente Nsa. Senhora De Nazaré",
+      "Hospital Saint Patrick - Un. Portinari",
+      "Hospital Cruzeiro Do Sul - Grupo NDI",
+      "Hospital Adventista De São Paulo - Un. Cto.",
+      "Hospital Sta. Rita - Casa De Saúde Sta. Rita",
+      "HSM - Hospital São Miguel - Un. São Miguel",
+      "Hospital E Mat. Guarulhos - Grupo NDI",
+      "Un. MedSênior - Avenida Brasil",
+      "Un. MedSênior - Avenida Paulista",
+      "Un. MedSênior - San.",
+      "Un. MedSênior - Sumarezinho",
+      "Un. MedSênior - Tatuapé"
+    ]
+  },
+  {
+    planName: "Black 5 QP",
+    hospitals: [
+      "Hospital Beneficência Portuguesa De São Paulo - Un. Paulista",
+      "Hospital São Camilo - Un. San.",
+      "Hospital São Camilo - Un. Ipiranga",
+      "HJH - Hospital Jardim Helena",
+      "Hospital Sta. Virgínia - Hospital Filhas de Nsa. Sra. do Mt. Calvário",
+      "HSM - Hospital São Miguel - Un. Day Hospital De Ermelino Matarazzo",
+      "Hospital E Mat. Metropolitano - Antigo Hospital Amico",
+      "Hospital E Mat. Sepaco",
+      "Hospital Presidente",
+      "Hospital São Bernardo - Grupo NDI",
+      "Esho Empresa De Serviços Hosp.es - Hospital Carlos Chagas",
+      "Hospital Vera Cruz",
+      "Hospital E Mat. Christóvão Da Gama - Grupo Leforte - Santo André",
+      "Hospital Dom Alvarenga - Associacao Beneficente Nsa. Senhora De Nazaré",
+      "Hospital Saint Patrick - Un. Portinari",
+      "Hospital Alvorada - Un. Moema",
+      "Hospital Cruzeiro Do Sul - Grupo NDI - Osasco",
+      "Hospital E Mat. Madre Theodora - Campinas",
+      "Hospital Adventista De São Paulo - Un. Cto.",
+      "Hospital Sta. Catarina",
+      "Hospital Vera Cruz - Campinas",
+      "Hospital E Mat. Sta. Tereza - Campinas",
+      "Hospital Leforte - Un. Liberdade",
+      "Casa De Saúde Campinas - Casa De Saúde Vera Cruz - Campinas",
+      "Hospital E Mat. Vitória",
+      "Hospital Renascença - Grupo NDI - Campinas",
+      "Hospital Sta. Rita - Casa De Saúde Sta. Rita",
+      "Hospital Leforte - Un. Morumbi",
+      "Hospital São Camilo - Un. Pompéia",
+      "HSM - Hospital São Miguel - Un. São Miguel",
+      "Hospital E Mat. Guarulhos - Grupo NDI - Guarulhos",
+      "Hospital Christóvão Da Gama - Un. Diadema",
+      "Un. MedSênior - Avenida Brasil",
+      "Un. MedSênior - Avenida Paulista",
+      "Un. MedSênior - Santana",
+      "Un. MedSênior - Sumarezinho",
+      "Un. MedSênior - Tatuapé"
+    ]
+  },
+  {
+    planName: "Infinite QP",
+    hospitals: [
+      "Hospital Beneficência Portuguesa De São Paulo - Un. Paulista",
+      "Hospital São Camilo - Un. San.",
+      "Hospital Samaritano - Un. Higienópolis",
+      "Hospital São Camilo - Un. Ipiranga",
+      "HJH - Hospital Jardim Helena",
+      "Hospital Sta. Virgínia - Hospital Filhas de Nsa. Sra. do Mt. Calvário",
+      "HSM - Hospital São Miguel - Un. Day Hospital De Ermelino Matarazzo",
+      "Hospital E Mat. Metropolitano - Antigo Hospital Amico",
+      "Hospital Sta. Paula",
+      "Hospital E Mat. Sepaco",
+      "Hospital Presidente",
+      "Hospital São Bernardo - Grupo NDI - São Bernardo do Campo",
+      "Esho Empresa De Serviços Hosp.es - Hospital Carlos Chagas - Guarulhos",
+      "Hospital Vera Cruz",
+      "Hospital E Mat. Christóvão Da Gama - Grupo Leforte - Santo André",
+      "Hospital Alemão Oswaldo Cruz - Un. Paulista",
+      "Hospital Dom Alvarenga - Associacao Beneficente Nsa. Senhora De Nazaré",
+      "Hospital Saint Patrick - Un. Portinari",
+      "Hospital Cruzeiro Do Sul - Grupo NDI",
+      "Hospital E Mat. Madre Theodora - Campinas",
+      "Hospital Adventista De São Paulo - Un. Cto.",
+      "Hospital Sta. Catarina",
+      "Hospital Nove de Julho",
+      "Hospital Vera Cruz - Campinas",
+      "Hospital E Mat. Sta. Tereza - Campinas",
+      "Hospital Leforte - Un. Liberdade",
+      "Casa De Saúde Campinas - Casa De Saúde Vera Cruz - Campinas",
+      "Hospital E Mat. Vitória",
+      "Hospital Renascença - Grupo NDI - Campinas",
+      "Hospital Sta. Rita - Casa De Saúde Sta. Rita", 
+      "Hospital São Camilo - Un. Pompéia",
+      "HSM - Hospital São Miguel - Un. São Miguel",
+      "Hospital E Mat. Guarulhos - Grupo NDI - Guarulhos",
+      "Hospital Samaritano - Un. Paulista",
+      "Hospital Christóvão Da Gama - Un. Diadema",
+      "Un. MedSênior - Avenida Brasil",
+      "Un. MedSênior - Avenida Paulista",
+      "Un. MedSênior - San.",
+      "Un. MedSênior - Sumarezinho",
+      "Un. MedSênior - Tatuapé"
+    ]
+  }
 ];
 
 export const PLANS: Plan[] = [
